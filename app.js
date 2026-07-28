@@ -458,15 +458,16 @@ ${report.correctiveActions}
 
         printable.innerHTML = `
             <div class="print-header" style="direction: rtl; text-align: right; border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
-                    <div>
-                        <h1 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 6px; font-weight: 700; font-family: Arial, sans-serif;">
-                            דוח תחקיר אירוע בטיחות
-                        </h1>
-                        <div style="font-size: 0.9rem; color: #475569; display: flex; gap: 15px; margin-top: 4px;">
-                            <span>מספר דוח: <strong>${report.id}</strong></span>
-                            <span>|</span>
-                            <span>סיווג אבטחה: <strong>בלמ"ס בלבד</strong></span>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <img src="amarel_logo.png" style="height: 38px; width: auto;">
+                        <div>
+                            <h1 style="font-size: 1.4rem; color: #0f172a; margin: 0; font-weight: 700; font-family: Arial, sans-serif;">
+                                טופס תחקיר בטיחות אמרל
+                            </h1>
+                            <div style="font-size: 0.85rem; color: #475569; margin-top: 4px;">
+                                מספר דוח: <strong>${report.id}</strong> | סיווג: <strong>בלמ"ס בלבד</strong>
+                            </div>
                         </div>
                     </div>
                     <div style="text-align: left; font-size: 0.85rem; color: #64748b; direction: ltr;">

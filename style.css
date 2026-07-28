@@ -115,7 +115,13 @@ body {
 .logo-group {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
+}
+
+.amarel-logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
 }
 
 .rocket-icon {
@@ -1113,15 +1119,14 @@ body {
         box-sizing: border-box;
     }
     
-    .rocket-icon {
-        width: 28px;
+    .amarel-logo-img {
         height: 28px;
-        font-size: 0.8rem;
     }
 
     .brand-title {
         font-size: 0.85rem;
         line-height: 1;
+        color: var(--pilot-blue-dark);
     }
 
     .brand-title span {
