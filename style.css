@@ -1055,27 +1055,204 @@ textarea {
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* ==========================================================================
+   Responsive & Mobile Optimization (Android, iPhone, Tablet & Desktop)
+   ========================================================================== */
+
+/* Touch-friendly inputs and smooth scrolling for mobile devices */
+html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Responsive Container adjustments */
+@media (max-width: 1024px) {
+    .workspace-container {
+        grid-template-columns: 240px 1fr;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .telemetry-header {
+        padding: 0.8rem 1rem;
+    }
+    
+    .stepper-hud {
+        padding: 0.8rem 1rem;
+    }
+}
+
+/* Tablet & Mobile Screens (iPhone & Android) */
+@media (max-width: 768px) {
+    .telemetry-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 0.8rem 1rem;
+    }
+    
+    .logo-group {
+        justify-content: center;
+    }
+    
+    .classification-badge {
+        align-self: center;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .system-status {
+        justify-content: space-between;
+        width: 100%;
+        border-top: 1px dashed rgba(0,0,0,0.1);
+        padding-top: 8px;
+    }
+
     .workspace-container {
         grid-template-columns: 1fr;
+        padding: 0.8rem;
+        gap: 1rem;
     }
+
+    .telemetry-sidebar {
+        order: 2; /* Move navigation tabs below or top as compact bar */
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        justify-content: space-around;
+        overflow-x: auto;
+        padding: 6px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    /* Stepper HUD Mobile View */
+    .stepper-hud {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        padding: 0.8rem 0.5rem;
+    }
+
+    .step-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .step-num {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .step-name {
+        font-size: 0.72rem;
+    }
+
+    .step-sub, .step-line {
+        display: none;
+    }
+
+    /* Form Layout on Mobile */
+    .hud-card-form {
+        padding: 1.2rem 0.9rem;
+    }
+
     .form-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
+
     .form-group.full-width {
         grid-column: span 1;
     }
-    .stepper-hud {
+
+    input, select, textarea {
+        font-size: 16px !important; /* Prevents iOS Safari auto-zoom on focus */
+        padding: 12px;
+    }
+
+    .matrix-selectors {
+        grid-template-columns: 1fr;
+    }
+
+    .category-chips {
+        gap: 6px;
+    }
+
+    .chip-btn {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        flex: 1 1 calc(50% - 10px);
+        justify-content: center;
+    }
+
+    .step-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .step-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .submit-btn-group {
+        width: 100%;
         flex-direction: column;
         gap: 10px;
-        align-items: flex-start;
     }
-    .step-line { display: none; }
-    .analytics-grid {
-        grid-template-columns: 1fr;
+
+    .submit-btn-group .btn {
+        width: 100%;
     }
-    .dashboard-charts-grid {
-        grid-template-columns: 1fr;
+
+    /* Modals on Mobile */
+    .hud-modal {
+        width: 95%;
+        max-height: 95vh;
+        margin: 10px;
+    }
+
+    .printable-area {
+        padding: 1rem;
+    }
+
+    .print-grid {
+        grid-template-columns: 1fr !important;
     }
 }
+
+/* Small iPhone / Android Screens */
+@media (max-width: 480px) {
+    .brand-title {
+        font-size: 1.1rem;
+    }
+    
+    .brand-subtitle {
+        font-size: 0.72rem;
+    }
+
+    .step-name {
+        font-size: 0.65rem;
+    }
+
+    .drop-zone {
+        padding: 1.2rem 0.5rem;
+    }
+
+    .drop-icon {
+        font-size: 2rem;
+    }
+}
+
