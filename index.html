@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.I.S - Safety Investigation & Telemetry System | מערכת תחקירי בטיחות</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Caveat:wght@600;700&family=Chakra+Petch:wght@600;700&family=Heebo:wght@400;600;700&family=Rubik:wght@400;500;700&family=Varela+Round&family=Writing+Mode&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf Library for generating PDF reports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- HUD Background FX -->
+    <div class="hud-grid-bg"></div>
+    <div class="hud-scanline"></div>
+
+    <!-- Header / Telemetry Bar -->
+    <header class="telemetry-header">
+        <div class="logo-group">
+            <div class="rocket-icon"><i class="fa-solid fa-rocket"></i></div>
+            <div>
+                <h1 class="brand-title">AERO-SAFETY <span>SYS v4.2</span></h1>
+                <p class="brand-subtitle">מערכת תחקור אירועי בטיחות והנדסת סביבה</p>
+            </div>
+        </div>
+
+        <div class="classification-badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>סיווג: בלמ"ס בלבד</span>
+            <div class="pulse-dot"></div>
+        </div>
+
+        <div class="system-status">
+            <div class="status-item">
+                <span class="label">מצב מערכת:</span>
+                <span class="value ready"><i class="fa-solid fa-circle-check"></i> מוכן לשיגור</span>
+            </div>
+            <div class="status-item">
+                <span class="label">זמן מערכת:</span>
+                <span class="value" id="clock-display">00:00:00</span>
+            </div>
+            <button id="open-settings-btn" class="icon-btn" title="הגדרות נמען מייל"><i class="fa-solid fa-gear"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <div class="workspace-container">
+        
+        <!-- Sidebar Navigation & Telemetry Stats -->
+        <aside class="telemetry-sidebar">
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-tab="new-report-tab">
+                    <i class="fa-solid fa-file-signature"></i> תחקיר חדש
+                </button>
+                <button class="nav-btn" data-tab="history-tab">
+                    <i class="fa-solid fa-box-archive"></i> ארכיון תחקרים (<span id="reports-count">0</span>)
+                </button>
+                <button class="nav-btn" data-tab="analytics-tab">
+                    <i class="fa-solid fa-chart-pie"></i> אנליטיקת בטיחות
+                </button>
+            </nav>
+
+            <!-- Quick Telemetry Gauges -->
+            <div class="telemetry-box">
+                <h3 class="box-title"><i class="fa-solid fa-gauge-high"></i> מדד סיכון סביבתי</h3>
+                <div class="gauge-meter">
+                    <div class="gauge-bar-fill" id="sidebar-risk-bar" style="width: 25%;"></div>
+                </div>
+                <div class="gauge-labels">
+                    <span id="sidebar-risk-text">נמוך (Low)</span>
+                    <span id="sidebar-risk-val">25%</span>
+                </div>
+            </div>
+
+            <div class="telemetry-box directive-box">
+                <h3 class="box-title"><i class="fa-solid fa-circle-exclamation"></i> הנחיית אבטחה והגנה</h3>
+                <p class="directive-text">
+                    אין להזין נתונים מסווגים, שמות פרויקטים סודיים או תמונות מכלולי מפתח מסווגים. המערכת מיועדת לרמת <strong>בלמ"ס (בלתי מסווג)</strong> בלבד.
+                </p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-stage">
+
+            <!-- TAB 1: New Safety Investigation Form -->
+            <section id="new-report-tab" class="tab-content active">
+                
+                <!-- Progress Stepper HUD -->
+                <div class="stepper-hud">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-num">01</div>
+                        <div class="step-info">
+                            <span class="step-name">מיקום וזמן</span>
+                            <span class="step-sub">פרטי הזירה</span>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-num">02</div>
+                        <div class="step-info">
+                            <span class="step-name">סיווג וסיכון</span>
+                            <span class="step-sub">הערכת חומרה</span>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-num">03</div>
+                        <div class="step-info">
+                            <span class="step-name">ניתוח שורש</span>
+                            <span class="step-sub">תיאור ומסקנות</span>
+                        </div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-num">04</div>
+                        <div class="step-info">
+                            <span class="step-name">תמונות ונספחים</span>
+                            <span class="step-sub">ממצאים ויזואליים</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Wizard Container -->
+                <form id="investigation-form" class="hud-card-form">
+                    
+                    <!-- STEP 1: General Details -->
+                    <div class="form-step-panel active" id="step-1-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-compass"></i> שלב 1: פרטי האירוע והזירה</h2>
+                            <span class="panel-tag font-mono">SYS_LOC_DAT</span>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="reporterName"><i class="fa-solid fa-user-gear"></i> שם המדווח / המתחקר *</label>
+                                <input type="text" id="reporterName" required placeholder="לדוגמה: אינג' ישראל ישראלי">
+                            </div>
+                            <div class="form-group">
+                                <label for="reporterRole"><i class="fa-solid fa-id-card"></i> תפקיד / מחלקה *</label>
+                                <input type="text" id="reporterRole" required placeholder="לדוגמה: מהנדס ניסויי מנוע / בטיחות סדנאות">
+                            </div>
+                            <div class="form-group">
+                                <label for="incidentDate"><i class="fa-solid fa-calendar-day"></i> תאריך ושעת האירוע *</label>
+                                <input type="datetime-local" id="incidentDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="incidentLocation"><i class="fa-solid fa-location-dot"></i> מיקום האירוע / מתקן *</label>
+                                <input type="text" id="incidentLocation" required placeholder="הזן מיקום חופשי (לדוגמה: סדנה 3, עמדת הרכבה 4B...)">
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" class="btn btn-primary next-step-btn" data-next="2">
+                                להערכת חומרה וסיכון <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Classification & Risk Assessment -->
+                    <div class="form-step-panel" id="step-2-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-triangle-exclamation"></i> שלב 2: סיווג והערכת רמת סיכון (Risk Matrix)</h2>
+                            <span class="panel-tag font-mono">RISK_ASSESS_ENGINE</span>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label><i class="fa-solid fa-tags"></i> סוג האירוע / הכשל המרכזי *</label>
+                                <div class="category-chips" id="category-chips">
+                                    <button type="button" class="chip-btn" data-val="כשל מכני / שבירת חלק">
+                                        <i class="fa-solid fa-gear"></i> כשל מכני / שבר
+                                    </button>
+                                    <button type="button" class="chip-btn" data-val="בטיחות אש / חומרים דליקים">
+                                        <i class="fa-solid fa-fire"></i> אש / דלקים
+                                    </button>
+                                    <button type="button" class="chip-btn" data-val="לחץ גבוה / צנרת הידראולית">
+                                        <i class="fa-solid fa-gauge-high"></i> לחץ גבוה / הידראוליקה
+                                    </button>
+                                    <button type="button" class="chip-btn" data-val="חומרים מסוכנים / כימיקלים">
+                                        <i class="fa-solid fa-vial"></i> חומ"ס / כימיקלים
+                                    </button>
+                                    <button type="button" class="chip-btn" data-val="חשמל / קצר / מתח גבוה">
+                                        <i class="fa-solid fa-bolt"></i> חשמל / מתח גבוה
+                                    </button>
+                                    <button type="button" class="chip-btn" data-val="עבודה בגובה / הרמה כבדה">
+                                        <i class="fa-solid fa-weight-hanging"></i> הרמה כבדה / עבודה בגובה
+                                    </button>
+                                    <button type="button" class="chip-btn" data-val="ציוד מגן PPE / פציעה אישית">
+                                        <i class="fa-solid fa-user-shield"></i> ציוד מגן / אירוע נפגעים
+                                    </button>
+                                </div>
+                                <input type="hidden" id="incidentCategory" required>
+                            </div>
+                        </div>
+
+                        <!-- Risk Matrix Evaluator -->
+                        <div class="risk-matrix-card">
+                            <h3><i class="fa-solid fa-calculator"></i> חישוב מטריצת סיכון בטיחותי (MIL-STD Style)</h3>
+                            
+                            <div class="matrix-selectors">
+                                <div class="form-group">
+                                    <label for="riskSeverity">חומרת התוצאה הפוטנציאלית (Severity):</label>
+                                    <select id="riskSeverity">
+                                        <option value="1">1 - זניח (Minor / No Injury)</option>
+                                        <option value="2" selected>2 - בינוני (Moderate / First Aid)</option>
+                                        <option value="3">3 - חמור (Critical / Equipment Damage)</option>
+                                        <option value="4">4 - קטסטרופלי (Catastrophic / Severe Hazard)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="riskProbability">סבירות הישנות האירוע (Probability):</label>
+                                    <select id="riskProbability">
+                                        <option value="1">1 - נדירה ביותר (Unlikely)</option>
+                                        <option value="2" selected>2 - אפשרית (Possible)</option>
+                                        <option value="3">3 - סבירה (Probable)</option>
+                                        <option value="4">4 - גבוהה מאוד (Frequent)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="risk-result-box" id="risk-result-box">
+                                <div class="risk-badge-display" id="risk-score-badge">דרגת סיכון: בינונית (6/16)</div>
+                                <p id="risk-desc-text">נדרש תחקיר מקומי ונקודת מעקב צוותית.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" class="btn btn-secondary prev-step-btn" data-prev="1">
+                                <i class="fa-solid fa-arrow-right"></i> חזרה לשלב 1
+                            </button>
+                            <button type="button" class="btn btn-primary next-step-btn" data-next="3">
+                                להזנת ניתוח שורש ומסקנות <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Root Cause & Action Items -->
+                    <div class="form-step-panel" id="step-3-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-brain"></i> שלב 3: ניתוח גורמי שורש (Root Cause) ופעולות מתקנות</h2>
+                            <span class="panel-tag font-mono">5_WHYS_ANALYSIS</span>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="incidentSummary"><i class="fa-solid fa-align-right"></i> תיאור מפורט של מהלך האירוע *</label>
+                                <textarea id="incidentSummary" rows="3" required placeholder="פרט בדיוק מה התרחש, אילו מערכות/מכונות היו מעורבות, ומה היו התנאים בזירה..."></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="rootCauseAnalysis"><i class="fa-solid fa-diagram-project"></i> ניתוח גורמי שורש (Root Cause / 5 Whys) *</label>
+                                <textarea id="rootCauseAnalysis" rows="3" required placeholder="מהי סיבת העומק לכשל? (דוגמה: שחיקת אטם הידראולי -> חוסר בתחזוקה מונעת -> היעדר נהל בדיקה בתקן)"></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="immediateActions"><i class="fa-solid fa-hand-holding-hand"></i> פעולות מיידיות שננקטו בשטח *</label>
+                                <textarea id="immediateActions" rows="2" required placeholder="עצירת מתקן, ניקוי שטח, מענה עזרה ראשונה..."></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="correctiveActions"><i class="fa-solid fa-list-check"></i> פעולות מתקנות לטווח ארוך למניעת הישנות *</label>
+                                <textarea id="correctiveActions" rows="2" required placeholder="עדכון נהלי בטיחות, הדרכת עובדים, החלפת ספק רכיבים..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" class="btn btn-secondary prev-step-btn" data-prev="2">
+                                <i class="fa-solid fa-arrow-right"></i> חזרה לשלב 2
+                            </button>
+                            <button type="button" class="btn btn-primary next-step-btn" data-next="4">
+                                להעלאת תמונות ונספחים <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Images & Submitting -->
+                    <div class="form-step-panel" id="step-4-panel">
+                        <div class="panel-header">
+                            <h2><i class="fa-solid fa-camera"></i> שלב 4: מודול תמונות, נספחים ויזואליים ושיגור</h2>
+                            <span class="panel-tag font-mono">ATTACH_DISPATCH</span>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label><i class="fa-solid fa-images"></i> העלאת תמונות מהאירוע / ממצאים (בלמ"ס בלבד)</label>
+                            
+                            <div class="drop-zone" id="image-drop-zone">
+                                <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                                <p class="drop-text">גרירת תמונות לכאן או <span>לחץ לבחירת קבצים</span></p>
+                                <span class="drop-hint">תומך בפורמטים PNG, JPG, WEBP (עד 5 תמונות)</span>
+                                <input type="file" id="imageFileInput" accept="image/*" multiple style="display:none;">
+                            </div>
+
+                            <!-- Preview gallery -->
+                            <div class="image-gallery-grid" id="image-gallery"></div>
+                        </div>
+
+                        <!-- Final Warning & Security Check -->
+                        <div class="security-confirm-box">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="unclassified-confirm" required>
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">
+                                    אני מאשר/ת בזאת כי כל הנתונים, המלל והתמונות המצורפות בטופס תחקיר זה הינם ברמת <strong>בלמ"ס (בלתי מסווג) בלבד</strong> ואינם מכילים סודות מקצועיים או ביטחוניים מסווגים.
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" class="btn btn-secondary prev-step-btn" data-prev="3">
+                                <i class="fa-solid fa-arrow-right"></i> חזרה לשלב 3
+                            </button>
+                            
+                            <div class="submit-btn-group">
+                                <button type="button" id="preview-report-btn" class="btn btn-outline">
+                                    <i class="fa-solid fa-eye"></i> תצוגה מקדימה לדוח
+                                </button>
+                                <button type="submit" id="submit-dispatch-btn" class="btn btn-launch">
+                                    <i class="fa-solid fa-paper-plane"></i> שיגור תחקיר ומשלוח מייל
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- TAB 2: History & Archive -->
+            <section id="history-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-box-archive"></i> ארכיון תחקירי בטיחות</h2>
+                    <div class="header-actions">
+                        <input type="text" id="search-history" placeholder="חיפוש לפי שם, מתקן או סיווג..." class="search-input">
+                        <button id="clear-history-btn" class="btn btn-danger-sm"><i class="fa-solid fa-trash"></i> ניקוי ארכיון</button>
+                    </div>
+                </div>
+
+                <div class="history-list" id="history-list-container">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+
+            <!-- TAB 3: Analytics & Safety Telemetry Dashboard -->
+            <section id="analytics-tab" class="tab-content">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-chart-line"></i> אנליטיקת תחקרים וטלמטריה</h2>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-folder-open"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-val" id="stat-total-reports">0</span>
+                            <span class="stat-lbl">סה"כ תחקרים במערכת</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card critical">
+                        <div class="stat-icon"><i class="fa-solid fa-radiation"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-val" id="stat-high-risk">0</span>
+                            <span class="stat-lbl">אירועים ברמת סיכון גבוהה</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-icon"><i class="fa-solid fa-square-check"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-val" id="stat-closed-actions">100%</span>
+                            <span class="stat-lbl">יישום מניעה ופעולות שורש</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts-grid">
+                    <div class="chart-card">
+                        <h3><i class="fa-solid fa-pie-chart"></i> התפלגות לפי סוגי כשל</h3>
+                        <div class="category-breakdown-list" id="category-breakdown">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3><i class="fa-solid fa-building-user"></i> אירועים לפי מתקנים וסדנאות</h3>
+                        <div class="location-breakdown-list" id="location-breakdown">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL: Email & Target Settings -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="hud-modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-sliders"></i> הגדרות נמען מייל ומשלוח</h3>
+                <button class="close-modal-btn" id="close-settings-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="targetEmailAddress"><i class="fa-solid fa-envelope"></i> כתובת דוא"ל נמען ראשי (מנהל בטיחות/מחלקה):</label>
+                    <input type="email" id="targetEmailAddress" value="safety-office@rocket-engineering.io" placeholder="name@domain.com">
+                </div>
+                <div class="form-group">
+                    <label for="ccEmailAddress"><i class="fa-solid fa-copy"></i> העתק (CC):</label>
+                    <input type="email" id="ccEmailAddress" placeholder="manager@domain.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-paper-plane"></i> שיטת משלוח מועדפת:</label>
+                    <select id="emailSendMethod">
+                        <option value="mailto">פתיחת תוכנת דוא"ל מקומית (Mailto Client)</option>
+                        <option value="simulation" selected>סימולציית שיגור + הורדת דוח מודפס (PDF Report)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="save-settings-btn">שמירת הגדרות</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Report Preview / Printable View -->
+    <div class="modal-overlay" id="report-preview-modal">
+        <div class="hud-modal report-modal-large">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-pdf"></i> תצוגה מקדימה - דוח תחקיר אירוע בטיחות</h3>
+                <div class="modal-header-btns">
+                    <button class="btn btn-outline-sm" id="download-pdf-btn"><i class="fa-solid fa-file-arrow-down"></i> הורד כ-PDF</button>
+                    <button class="close-modal-btn" id="close-preview-modal">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body printable-area" id="printable-report-content">
+                <!-- Generated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
