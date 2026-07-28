@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize App
     initClock();
     initNavigation();
+    initAccessibility();
     initStepper();
     initCategoryChips();
     initRiskMatrix();
@@ -83,6 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetTab = btn.getAttribute('data-tab');
                 switchTab(targetTab, btn);
             }, { passive: true });
+        });
+    }
+
+    // 2.1 Accessibility
+    function initAccessibility() {
+        const accBtn = document.getElementById('accessibility-btn');
+        if (!accBtn) return;
+
+        accBtn.addEventListener('click', () => {
+            const hasClass = document.body.classList.contains('accessible-fonts');
+            if (!hasClass) {
+                document.body.classList.add('accessible-fonts');
+                accBtn.style.color = 'var(--rocket-orange)';
+            } else {
+                document.body.classList.remove('accessible-fonts');
+                accBtn.style.color = '';
+            }
         });
     }
 

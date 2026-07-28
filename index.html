@@ -32,7 +32,8 @@
                     <i class="fa-regular fa-clock"></i>
                     <span id="clock-display">00:00:00</span>
                 </div>
-                <button id="open-settings-btn" class="icon-btn" title="הגדרות נמען מייל"><i class="fa-solid fa-gear"></i></button>
+                <button id="accessibility-btn" class="icon-btn" title="נגישות"><i class="fa-solid fa-universal-access"></i></button>
+                <button id="open-settings-btn" class="icon-btn hidden" title="הגדרות נמען מייל"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
 
@@ -60,6 +61,9 @@
                 <button class="nav-btn" data-tab="analytics-tab">
                     <i class="fa-solid fa-chart-pie"></i> אנליטיקת בטיחות
                 </button>
+                <button class="nav-btn" data-tab="security-tab">
+                    <i class="fa-solid fa-shield-halved"></i> הנחיות אבטחה
+                </button>
             </nav>
 
             <!-- Quick Telemetry Gauges -->
@@ -72,13 +76,6 @@
                     <span id="sidebar-risk-text">נמוך (Low)</span>
                     <span id="sidebar-risk-val">25%</span>
                 </div>
-            </div>
-
-            <div class="telemetry-box directive-box">
-                <h3 class="box-title"><i class="fa-solid fa-circle-exclamation"></i> הנחיית אבטחה והגנה</h3>
-                <p class="directive-text">
-                    אין להזין נתונים מסווגים, שמות פרויקטים סודיים או תמונות מכלולי מפתח מסווגים. המערכת מיועדת לרמת <strong>בלמ"ס (בלתי מסווג)</strong> בלבד.
-                </p>
             </div>
         </aside>
 
@@ -387,6 +384,37 @@
                         <h3><i class="fa-solid fa-building-user"></i> אירועים לפי מתקנים וסדנאות</h3>
                         <div class="location-breakdown-list" id="location-breakdown">
                             <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Security Instructions -->
+            <section id="security-tab" class="tab-content">
+                <div class="hud-card-form security-guidelines">
+                    <div class="panel-header">
+                        <h2><i class="fa-solid fa-shield-halved"></i> הנחיות אבטחה והגנת מידע</h2>
+                        <span class="panel-tag font-mono">SEC_PROT_LEVEL_1</span>
+                    </div>
+                    
+                    <div class="security-content-grid">
+                        <div class="security-warning-large">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <div class="warning-text">
+                                <h3>המערכת מיועדת לרמת בלמ"ס (בלתי מסווג) בלבד!</h3>
+                                <p>על פי הנחיות מחלקת אבטחת מידע, חל איסור מוחלט על הזנת פרטים מסווגים בטופס זה.</p>
+                            </div>
+                        </div>
+
+                        <ul class="security-list">
+                            <li><i class="fa-solid fa-circle-xmark color-danger"></i> אין להזין שמות פרויקטים סודיים או מסווגים.</li>
+                            <li><i class="fa-solid fa-circle-xmark color-danger"></i> אין להעלות תמונות הכוללות מכלולים מסווגים או פנים של עובדים ביחידות רגישות.</li>
+                            <li><i class="fa-solid fa-circle-xmark color-danger"></i> אין לציין מיקומים מדויקים של מתקנים אסטרטגיים.</li>
+                            <li><i class="fa-solid fa-circle-check color-success"></i> יש להשתמש במינוחים כלליים כגון "מתקן ייצור", "ניסוי מכאני", "תקלת בטיחות" וכדומה.</li>
+                        </ul>
+
+                        <div class="security-footer">
+                            <p>בכל מקרה של ספק לגבי רמת הסיווג של האירוע, יש להתייעץ עם ממונה אבטחת המידע לפני מילוי הטופס.</p>
                         </div>
                     </div>
                 </div>
