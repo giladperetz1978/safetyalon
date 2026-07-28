@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Clock Display
     function initClock() {
         const clockEl = document.getElementById('clock-display');
+        if (!clockEl) return; // הגנה למקרה שהאלמנט לא קיים ב-HTML
+        
         function updateClock() {
             const now = new Date();
             clockEl.textContent = now.toLocaleTimeString('he-IL', { hour12: false });
@@ -44,21 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const navBtns = document.querySelectorAll('.nav-btn');
         const tabContents = document.querySelectorAll('.tab-content');
 
+        if (!navBtns.length || !tabContents.length) return;
+
         function switchTab(targetTab, clickedBtn) {
             // Update buttons active state
             navBtns.forEach(b => b.classList.remove('active'));
             if (clickedBtn) clickedBtn.classList.add('active');
 
-            // Hide all tabs and show target tab
+            // Hide all tabs and show target tab using classes only (cleaner)
             tabContents.forEach(tc => {
                 tc.classList.remove('active');
-                tc.style.display = 'none';
             });
 
             const activeTabEl = document.getElementById(targetTab);
             if (activeTabEl) {
                 activeTabEl.classList.add('active');
-                activeTabEl.style.display = 'block';
             }
 
             // Render view contents
@@ -70,9 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         navBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
+                e.preventDefault();
                 const targetTab = btn.getAttribute('data-tab');
                 switchTab(targetTab, btn);
             });
+            
+            // הוספת תמיכה במגע לסמארטפונים
+            btn.addEventListener('touchstart', (e) => {
+                // e.preventDefault(); // נזהר עם זה כדי לא לחסום גלילה אם הכפתור בתוך אזור נגלל
+                const targetTab = btn.getAttribute('data-tab');
+                switchTab(targetTab, btn);
+            }, { passive: true });
         });
     }
 
