@@ -1190,39 +1190,44 @@ body {
     .workspace-container {
         display: flex;
         flex-direction: column;
-        padding: 0.4rem;
+        padding: 0.3rem;
         gap: 0.4rem;
         width: 100%;
-        max-width: 100%;
+        max-width: 100vw;
         box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .telemetry-sidebar {
         order: 1;
         width: 100%;
+        box-sizing: border-box;
     }
 
     .nav-menu {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        padding: 3px;
-        gap: 3px;
+        justify-content: space-around;
+        padding: 3px 2px;
+        gap: 2px;
         width: 100%;
+        max-width: 100%;
         box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .nav-btn {
-        padding: 6px 4px;
-        font-size: 0.72rem;
+        padding: 6px 2px;
+        font-size: 0.68rem;
         white-space: nowrap;
         flex: 1;
         justify-content: center;
-        gap: 4px;
+        gap: 2px;
+        border-radius: 4px;
     }
 
     .nav-btn i {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .main-stage {
@@ -1230,6 +1235,7 @@ body {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     /* Stepper HUD Mobile View */
@@ -1240,6 +1246,8 @@ body {
         margin-bottom: 0.5rem;
         gap: 2px;
         background: #ffffff;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .step-item {
@@ -1250,15 +1258,26 @@ body {
     }
 
     .step-num {
-        width: 22px;
-        height: 22px;
-        font-size: 0.72rem;
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
         border-radius: 4px;
     }
 
     .step-name {
-        font-size: 0.65rem;
+        font-size: 0.62rem;
         margin-top: 1px;
+    }
+
+    /* Form Layout on Mobile */
+    .hud-card-form {
+        padding: 0.6rem 0.4rem;
+        box-shadow: none;
+        border-width: 1px;
+        border-radius: 6px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     /* History & Analytics Tab fixes for Mobile */

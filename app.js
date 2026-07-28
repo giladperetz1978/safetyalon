@@ -45,18 +45,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabContents = document.querySelectorAll('.tab-content');
 
         navBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
+            const handleTabClick = (e) => {
+                e.preventDefault();
                 const targetTab = btn.getAttribute('data-tab');
 
                 navBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(tc => tc.classList.remove('active'));
 
                 btn.classList.add('active');
-                document.getElementById(targetTab).classList.add('active');
+                const targetEl = document.getElementById(targetTab);
+                if (targetEl) {
+                    targetEl.classList.add('active');
+                }
 
                 if (targetTab === 'history-tab') renderHistory();
                 if (targetTab === 'analytics-tab') renderAnalytics();
-            });
+            };
+
+            btn.addEventListener('click', handleTabClick);
+            btn.addEventListener('touchstart', handleTabClick, { passive: false });
         });
     }
 
