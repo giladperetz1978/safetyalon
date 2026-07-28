@@ -44,26 +44,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const navBtns = document.querySelectorAll('.nav-btn');
         const tabContents = document.querySelectorAll('.tab-content');
 
+        function switchTab(targetTab, clickedBtn) {
+            // Update buttons active state
+            navBtns.forEach(b => b.classList.remove('active'));
+            if (clickedBtn) clickedBtn.classList.add('active');
+
+            // Hide all tabs and show target tab
+            tabContents.forEach(tc => {
+                tc.classList.remove('active');
+                tc.style.display = 'none';
+            });
+
+            const activeTabEl = document.getElementById(targetTab);
+            if (activeTabEl) {
+                activeTabEl.classList.add('active');
+                activeTabEl.style.display = 'block';
+            }
+
+            // Render view contents
+            if (targetTab === 'history-tab') renderHistory();
+            if (targetTab === 'analytics-tab') renderAnalytics();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         navBtns.forEach(btn => {
-            const handleTabClick = (e) => {
-                e.preventDefault();
+            btn.addEventListener('click', (e) => {
                 const targetTab = btn.getAttribute('data-tab');
-
-                navBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(tc => tc.classList.remove('active'));
-
-                btn.classList.add('active');
-                const targetEl = document.getElementById(targetTab);
-                if (targetEl) {
-                    targetEl.classList.add('active');
-                }
-
-                if (targetTab === 'history-tab') renderHistory();
-                if (targetTab === 'analytics-tab') renderAnalytics();
-            };
-
-            btn.addEventListener('click', handleTabClick);
-            btn.addEventListener('touchstart', handleTabClick, { passive: false });
+                switchTab(targetTab, btn);
+            });
         });
     }
 
