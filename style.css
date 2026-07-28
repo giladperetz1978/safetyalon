@@ -45,13 +45,18 @@
     padding: 0;
 }
 
+html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     font-family: var(--font-main);
     direction: rtl;
     min-height: 100vh;
-    overflow-x: hidden;
     line-height: 1.5;
 }
 
@@ -1088,59 +1093,62 @@ body {
 
 /* Tablet & Mobile Screens (iPhone & Android) */
 @media (max-width: 768px) {
-    body {
-        font-size: 0.82rem;
-        overflow-x: hidden;
+    html, body {
+        width: 100vw;
+        overflow-x: hidden !important;
+        position: relative;
     }
 
-    .hud-grid-bg {
-        background-size: 100% 100%, 100% 24px, 24px 100%;
+    body {
+        font-size: 0.82rem;
     }
 
     .telemetry-header {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
+        display: flex;
+        flex-direction: row;
         align-items: center;
-        gap: 6px;
+        justify-content: space-between;
         padding: 0.4rem 0.6rem;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .rocket-icon {
-        width: 30px;
-        height: 30px;
-        font-size: 0.85rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
     }
 
     .brand-title {
-        font-size: 0.95rem;
-        line-height: 1.1;
+        font-size: 0.85rem;
+        line-height: 1;
     }
 
     .brand-title span {
-        font-size: 0.65rem;
-        padding: 1px 4px;
+        display: none; /* Hide version badge on mobile header to fit width */
     }
 
     .brand-subtitle {
-        display: none; /* Hide subtitle on mobile for compactness */
+        display: none;
     }
 
     .classification-badge {
-        padding: 2px 6px;
-        font-size: 0.7rem;
+        padding: 2px 5px;
+        font-size: 0.65rem;
         white-space: nowrap;
     }
 
     .system-status {
-        display: none; /* Hide status items on small header to save space */
+        display: none;
     }
 
     .workspace-container {
         display: flex;
         flex-direction: column;
         padding: 0.4rem;
-        gap: 0.5rem;
+        gap: 0.4rem;
         width: 100%;
+        max-width: 100%;
         box-sizing: border-box;
     }
 
@@ -1152,25 +1160,29 @@ body {
     .nav-menu {
         flex-direction: row;
         justify-content: space-around;
-        padding: 3px;
+        padding: 2px;
         gap: 2px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .nav-btn {
-        padding: 6px 8px;
-        font-size: 0.78rem;
+        padding: 6px 4px;
+        font-size: 0.75rem;
         white-space: nowrap;
         flex: 1;
         justify-content: center;
     }
 
     .telemetry-box {
-        display: none; /* Hide sidebar telemetry widgets on mobile to focus on form */
+        display: none;
     }
 
     .main-stage {
         order: 2;
         width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     /* Stepper HUD Mobile View */
@@ -1208,10 +1220,13 @@ body {
 
     /* Form Layout on Mobile */
     .hud-card-form {
-        padding: 0.6rem 0.6rem;
+        padding: 0.6rem 0.5rem;
         box-shadow: none;
         border-width: 1px;
         border-radius: 6px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .panel-header {
@@ -1230,6 +1245,13 @@ body {
     .form-grid {
         grid-template-columns: 1fr;
         gap: 0.5rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-group {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     label {
@@ -1239,8 +1261,11 @@ body {
 
     input, select, textarea {
         font-size: 0.92rem !important;
-        padding: 6px 8px;
+        padding: 8px 8px;
         border-radius: 4px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .matrix-selectors {
