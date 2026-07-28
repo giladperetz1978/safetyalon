@@ -1088,75 +1088,89 @@ body {
 
 /* Tablet & Mobile Screens (iPhone & Android) */
 @media (max-width: 768px) {
+    body {
+        font-size: 0.88rem;
+    }
+
     .telemetry-header {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
-        padding: 0.8rem 1rem;
+        gap: 6px;
+        padding: 0.5rem 0.8rem;
     }
     
-    .logo-group {
-        justify-content: center;
+    .rocket-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
     }
-    
+
+    .brand-title {
+        font-size: 1.05rem;
+    }
+
+    .brand-title span {
+        font-size: 0.75rem;
+    }
+
+    .brand-subtitle {
+        font-size: 0.7rem;
+    }
+
     .classification-badge {
-        align-self: center;
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .system-status {
-        justify-content: space-between;
-        width: 100%;
-        border-top: 1px dashed rgba(0,0,0,0.1);
-        padding-top: 8px;
+        padding: 3px 8px;
+        font-size: 0.75rem;
     }
 
     .workspace-container {
         grid-template-columns: 1fr;
-        padding: 0.8rem;
-        gap: 1rem;
-    }
-
-    .telemetry-sidebar {
-        order: 2; /* Move navigation tabs below or top as compact bar */
+        padding: 0.5rem;
+        gap: 0.6rem;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
     }
 
     .nav-menu {
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         overflow-x: auto;
-        padding: 6px;
+        padding: 4px;
+        gap: 4px;
     }
 
     .nav-btn {
-        padding: 8px 12px;
-        font-size: 0.85rem;
+        padding: 6px 10px;
+        font-size: 0.8rem;
         white-space: nowrap;
     }
 
     /* Stepper HUD Mobile View */
     .stepper-hud {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        padding: 0.8rem 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.6rem 0.4rem;
+        margin-bottom: 0.8rem;
+        gap: 2px;
     }
 
     .step-item {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        flex: 1;
     }
 
     .step-num {
-        width: 30px;
-        height: 30px;
-        font-size: 0.9rem;
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+        border-radius: 6px;
     }
 
     .step-name {
-        font-size: 0.72rem;
+        font-size: 0.68rem;
+        margin-top: 2px;
     }
 
     .step-sub, .step-line {
@@ -1165,52 +1179,68 @@ body {
 
     /* Form Layout on Mobile */
     .hud-card-form {
-        padding: 1.2rem 0.9rem;
+        padding: 0.9rem 0.75rem;
+        box-shadow: none;
+        border-width: 1px;
+    }
+
+    .panel-header {
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .panel-header h2 {
+        font-size: 1rem;
     }
 
     .form-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
-    .form-group.full-width {
-        grid-column: span 1;
+    label {
+        font-size: 0.8rem;
     }
 
     input, select, textarea {
-        font-size: 16px !important; /* Prevents iOS Safari auto-zoom on focus */
-        padding: 12px;
+        font-size: 15px !important;
+        padding: 8px 10px;
     }
 
     .matrix-selectors {
         grid-template-columns: 1fr;
+        gap: 0.5rem;
     }
 
     .category-chips {
-        gap: 6px;
+        gap: 4px;
     }
 
     .chip-btn {
-        padding: 8px 10px;
-        font-size: 0.8rem;
-        flex: 1 1 calc(50% - 10px);
+        padding: 6px 8px;
+        font-size: 0.75rem;
+        flex: 1 1 calc(50% - 6px);
         justify-content: center;
     }
 
     .step-actions {
         flex-direction: column-reverse;
-        gap: 10px;
+        gap: 8px;
+        margin-top: 1.2rem;
+        padding-top: 0.8rem;
     }
 
     .step-actions .btn {
         width: 100%;
+        padding: 9px;
+        font-size: 0.88rem;
         justify-content: center;
     }
 
     .submit-btn-group {
         width: 100%;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
 
     .submit-btn-group .btn {
@@ -1219,13 +1249,13 @@ body {
 
     /* Modals on Mobile */
     .hud-modal {
-        width: 95%;
-        max-height: 95vh;
-        margin: 10px;
+        width: 96%;
+        max-height: 94vh;
+        margin: 5px;
     }
 
     .printable-area {
-        padding: 1rem;
+        padding: 0.8rem;
     }
 
     .print-grid {
