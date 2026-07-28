@@ -119,8 +119,10 @@ body {
 }
 
 .amarel-logo-img {
-    height: 42px;
+    height: 36px;
+    max-height: 36px;
     width: auto;
+    max-width: 140px;
     object-fit: contain;
 }
 
@@ -1114,19 +1116,32 @@ body {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 0.4rem 0.6rem;
+        padding: 0.3rem 0.5rem;
         width: 100%;
         box-sizing: border-box;
     }
     
+    .logo-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        max-width: 70%;
+    }
+
     .amarel-logo-img {
-        height: 28px;
+        height: 28px !important;
+        max-height: 28px !important;
+        width: auto !important;
+        max-width: 110px !important;
+        object-fit: contain;
+        flex-shrink: 0;
     }
 
     .brand-title {
-        font-size: 0.85rem;
-        line-height: 1;
+        font-size: 0.8rem;
+        line-height: 1.1;
         color: var(--pilot-blue-dark);
+        white-space: nowrap;
     }
 
     .brand-title span {
