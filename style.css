@@ -1126,6 +1126,25 @@ body {
     }
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.system-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Chakra Petch', sans-serif;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    background: rgba(0, 168, 255, 0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 168, 255, 0.3);
+}
+
 /* Tablet & Mobile Screens (iPhone & Android) */
 @media (max-width: 768px) {
     html, body {
@@ -1145,6 +1164,16 @@ body {
     
     .header-top-row {
         gap: 6px;
+        flex-direction: column;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .brand-title {
+        font-size: 1rem;
     }
 
     .logo-group {
