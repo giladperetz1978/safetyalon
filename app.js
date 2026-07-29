@@ -216,10 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         if (step === 2) {
-            if (!state.selectedCategory) {
-                showToast('אנא בחר סיווג/קטגוריה לאירוע בשלב 2', 'error');
-                return false;
-            }
+            // Restriction removed based on user request - allows passing without selection
+            return true;
         }
         if (step === 3) {
             const summary = document.getElementById('incidentSummary').value.trim();
