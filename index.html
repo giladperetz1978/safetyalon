@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="theme-color" content="#0038a8">
     <title>S.I.S - Safety Investigation & Telemetry System | מערכת תחקירי בטיחות</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="amarel_logo.png" type="image/x-icon">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +38,10 @@
                     <i class="fa-regular fa-clock"></i>
                     <span id="clock-display">00:00:00</span>
                 </div>
+                <button id="install-pwa-btn" class="pwa-install-btn" title="התקנת אפליקציה">
+                    <i class="fa-solid fa-download"></i>
+                    <span>INSTALL</span>
+                </button>
                 <button id="open-settings-btn" class="icon-btn" title="הגדרות נמען מייל"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
@@ -500,6 +507,36 @@
             </div>
             <div class="modal-body printable-area" id="printable-report-content">
                 <!-- Generated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA Installation Modal -->
+    <div id="pwa-modal" class="hud-layer-modal">
+        <div class="hud-modal pwa-modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-mobile-screen-button"></i> התקנת אפליקציה (PWA)</h3>
+                <button class="close-modal-btn" id="close-pwa-modal">&times;</button>
+            </div>
+            <div class="modal-body pwa-instructions">
+                <div class="pwa-platform">
+                    <h4><i class="fa-brands fa-android"></i> אנדרואיד (Chrome)</h4>
+                    <ol>
+                        <li>לחץ על כפתור <strong>INSTALL</strong> בכותרת (אם מופיע).</li>
+                        <li>בתפריט הדפדפן (3 נקודות) בחר <strong>"התקן אפליקציה"</strong> או <strong>"הוסף למסך הבית"</strong>.</li>
+                    </ol>
+                </div>
+                <hr>
+                <div class="pwa-platform">
+                    <h4><i class="fa-brands fa-apple"></i> אייפון / iOS (Safari)</h4>
+                    <ol>
+                        <li>לחץ על כפתור <strong>"שתף"</strong> <i class="fa-solid fa-share-from-square"></i> (בתחתית המסך).</li>
+                        <li>גלול מטה ובחר <strong>"הוסף למסך הבית"</strong> <i class="fa-solid fa-plus-square"></i>.</li>
+                    </ol>
+                </div>
+                <div class="pwa-footer-note">
+                    <p>לאחר ההתקנה, תוכל להפעיל את המערכת ישירות ממסך הבית גם ללא אינטרנט.</p>
+                </div>
             </div>
         </div>
     </div>

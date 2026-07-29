@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initClock();
     initNavigation();
     initAccessibility();
+    initPWA();
     initStepper();
     initCategoryChips();
     initRiskMatrix();
@@ -759,5 +760,60 @@ ${report.correctiveActions}
             toast.style.transition = '0.3s ease';
             setTimeout(() => toast.remove(), 300);
         }, 3500);
+    }
+
+    // 13. PWA Installation
+    function initPWA() {
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-pwa-btn');
+        const pwaModal = document.getElementById('pwa-modal');
+        const closePwaBtn = document.getElementById('close-pwa-modal');
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('SW Registered', reg))
+                .catch(err => console.log('SW Error', err));
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Update UI to notify the user they can add to home screen
+            if (installBtn) installBtn.style.display = 'flex';
+        });
+
+        if (installBtn) {
+            installBtn.addEventListener('click', () => {
+                // Show the instruction modal anyway
+                if (pwaModal) pwaModal.classList.add('active');
+
+                // If prompt is available, trigger it
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                }
+            });
+        }
+
+        if (closePwaBtn && pwaModal) {
+            closePwaBtn.addEventListener('click', () => {
+                pwaModal.classList.remove('active');
+            });
+        }
+
+        // Hide modal on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === pwaModal) {
+                pwaModal.classList.remove('active');
+            }
+        });
     }
 });
