@@ -32,8 +32,7 @@
                     <i class="fa-regular fa-clock"></i>
                     <span id="clock-display">00:00:00</span>
                 </div>
-                <button id="accessibility-btn" class="icon-btn" title="נגישות"><i class="fa-solid fa-universal-access"></i></button>
-                <button id="open-settings-btn" class="icon-btn hidden" title="הגדרות נמען מייל"><i class="fa-solid fa-gear"></i></button>
+                <button id="open-settings-btn" class="icon-btn" title="הגדרות נמען מייל"><i class="fa-solid fa-gear"></i></button>
             </div>
         </div>
 
@@ -45,6 +44,11 @@
             </div>
         </div>
     </header>
+
+    <button id="accessibility-btn" class="floating-acc-btn" title="תפריט נגישות">
+        <i class="fa-solid fa-universal-access"></i>
+        <span class="btn-tooltip">נגישות</span>
+    </button>
 
     <!-- Main Workspace Layout -->
     <div class="workspace-container">
@@ -165,31 +169,8 @@
 
                         <div class="form-grid">
                             <div class="form-group full-width">
-                                <label><i class="fa-solid fa-tags"></i> סוג האירוע / הכשל המרכזי *</label>
-                                <div class="category-chips" id="category-chips">
-                                    <button type="button" class="chip-btn" data-val="כשל מכני / שבירת חלק">
-                                        <i class="fa-solid fa-gear"></i> כשל מכני / שבר
-                                    </button>
-                                    <button type="button" class="chip-btn" data-val="בטיחות אש / חומרים דליקים">
-                                        <i class="fa-solid fa-fire"></i> אש / דלקים
-                                    </button>
-                                    <button type="button" class="chip-btn" data-val="לחץ גבוה / צנרת הידראולית">
-                                        <i class="fa-solid fa-gauge-high"></i> לחץ גבוה / הידראוליקה
-                                    </button>
-                                    <button type="button" class="chip-btn" data-val="חומרים מסוכנים / כימיקלים">
-                                        <i class="fa-solid fa-vial"></i> חומ"ס / כימיקלים
-                                    </button>
-                                    <button type="button" class="chip-btn" data-val="חשמל / קצר / מתח גבוה">
-                                        <i class="fa-solid fa-bolt"></i> חשמל / מתח גבוה
-                                    </button>
-                                    <button type="button" class="chip-btn" data-val="עבודה בגובה / הרמה כבדה">
-                                        <i class="fa-solid fa-weight-hanging"></i> הרמה כבדה / עבודה בגובה
-                                    </button>
-                                    <button type="button" class="chip-btn" data-val="ציוד מגן PPE / פציעה אישית">
-                                        <i class="fa-solid fa-user-shield"></i> ציוד מגן / אירוע נפגעים
-                                    </button>
-                                </div>
-                                <input type="hidden" id="incidentCategory" required>
+                                <label for="incidentCategory"><i class="fa-solid fa-tags"></i> סוג האירוע / הכשל המרכזי *</label>
+                                <textarea id="incidentCategory" rows="2" required placeholder="פרט את סוג הכשל (לדוגמה: כשל מכני ברזל, דליפת דלק, קצר חשמלי...)"></textarea>
                             </div>
                         </div>
 
@@ -449,6 +430,60 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" id="save-settings-btn">שמירת הגדרות</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Accessibility Widget -->
+    <div class="modal-overlay" id="accessibility-modal">
+        <div class="hud-modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-universal-access"></i> תפריט נגישות</h3>
+                <button class="close-modal-btn" id="close-accessibility-modal">&times;</button>
+            </div>
+            <div class="modal-body accessibility-options">
+                <div class="acc-option">
+                    <span><i class="fa-solid fa-font"></i> הגדלת גופן</span>
+                    <div class="acc-controls">
+                        <button class="btn btn-outline-sm acc-action" data-acc="font-normal">רגיל</button>
+                        <button class="btn btn-outline-sm acc-action" data-acc="font-large">גדול</button>
+                        <button class="btn btn-outline-sm acc-action" data-acc="font-extra-large">גדול מאוד</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="acc-option">
+                    <span><i class="fa-solid fa-circle-half-stroke"></i> ניגודיות</span>
+                    <div class="acc-controls">
+                        <button class="btn btn-outline-sm acc-action" data-acc="contrast-normal">רגיל</button>
+                        <button class="btn btn-outline-sm acc-action" data-acc="contrast-high">ניגודיות גבוהה</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="acc-option">
+                    <span><i class="fa-solid fa-palette"></i> צבעים</span>
+                    <div class="acc-controls">
+                        <button class="btn btn-outline-sm acc-action" data-acc="colors-normal">צבעים רגילים</button>
+                        <button class="btn btn-outline-sm acc-action" data-acc="colors-grayscale">גווני אפור</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="acc-option">
+                    <span><i class="fa-solid fa-text-height"></i> גופן קריא</span>
+                    <div class="acc-controls">
+                        <button class="btn btn-outline-sm acc-action" data-acc="font-readable">הפעל גופן קריא (Arial)</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="acc-option">
+                    <span><i class="fa-solid fa-link"></i> קישורים</span>
+                    <div class="acc-controls">
+                        <button class="btn btn-outline-sm acc-action" data-acc="highlight-links">הדגשת קישורים</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="acc-option">
+                    <button class="btn btn-secondary acc-action" data-acc="reset-acc">איפוס כל ההגדרות</button>
+                </div>
             </div>
         </div>
     </div>

@@ -89,19 +89,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2.1 Accessibility
     function initAccessibility() {
-        const accBtn = document.getElementById('accessibility-btn');
-        if (!accBtn) return;
+        const modal = document.getElementById('accessibility-modal');
+        const openBtn = document.getElementById('accessibility-btn');
+        const closeBtn = document.getElementById('close-accessibility-modal');
+        const accActions = document.querySelectorAll('.acc-action');
 
-        accBtn.addEventListener('click', () => {
-            const hasClass = document.body.classList.contains('accessible-fonts');
-            if (!hasClass) {
-                document.body.classList.add('accessible-fonts');
-                accBtn.style.color = 'var(--rocket-orange)';
-            } else {
-                document.body.classList.remove('accessible-fonts');
-                accBtn.style.color = '';
-            }
+        if (!openBtn || !modal) return;
+
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
         });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        accActions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Clear active from siblings
+                const parent = btn.parentElement;
+                if (parent) {
+                    parent.querySelectorAll('.acc-action').forEach(b => b.classList.remove('active'));
+                }
+                btn.classList.add('active');
+                
+                const action = btn.getAttribute('data-acc');
+                applyAccessibility(action);
+            });
+        });
+
+        function applyAccessibility(action) {
+            switch(action) {
+                case 'font-normal':
+                    document.body.classList.remove('font-large', 'font-extra-large');
+                    break;
+                case 'font-large':
+                    document.body.classList.remove('font-extra-large');
+                    document.body.classList.add('font-large');
+                    break;
+                case 'font-extra-large':
+                    document.body.classList.remove('font-large');
+                    document.body.classList.add('font-extra-large');
+                    break;
+                case 'contrast-normal':
+                    document.body.classList.remove('high-contrast');
+                    break;
+                case 'contrast-high':
+                    document.body.classList.add('high-contrast');
+                    break;
+                case 'colors-normal':
+                    document.body.classList.remove('grayscale-mode');
+                    break;
+                case 'colors-grayscale':
+                    document.body.classList.add('grayscale-mode');
+                    break;
+                case 'font-readable':
+                    document.body.classList.toggle('readable-font');
+                    break;
+                case 'highlight-links':
+                    document.body.classList.toggle('highlight-links');
+                    break;
+                case 'reset-acc':
+                    document.body.classList.remove(
+                        'font-large', 'font-extra-large', 
+                        'high-contrast', 'grayscale-mode', 
+                        'readable-font', 'highlight-links'
+                    );
+                    break;
+            }
+        }
     }
 
     // 3. Multi-step Stepper Form
