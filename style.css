@@ -60,9 +60,15 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     font-family: var(--font-main);
+    font-weight: 700;
     direction: rtl;
     min-height: 100vh;
     line-height: 1.5;
+}
+
+input, textarea, select, button {
+    font-family: inherit;
+    font-weight: 700 !important;
 }
 
 /* Blueprint Grid FX & HUD Scanline (White Lined Notebook Style) */
