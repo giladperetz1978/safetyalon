@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Navigation Tabs
     function initNavigation() {
-        const navBtns = document.querySelectorAll('.nav-btn');
+        const navBtns = document.querySelectorAll('.nav-btn, .nav-btn-header');
         const tabContents = document.querySelectorAll('.tab-content');
 
         if (!navBtns.length || !tabContents.length) return;

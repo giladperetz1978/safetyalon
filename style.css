@@ -278,6 +278,31 @@ body {
     width: 20px;
 }
 
+.nav-btn-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 2px solid var(--pilot-blue);
+    color: var(--pilot-blue);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-btn-header:hover {
+    background: var(--pilot-blue);
+    color: white;
+}
+
+.nav-btn-header i {
+    font-size: 1rem;
+}
+
 .nav-btn:hover {
     color: var(--text-primary);
     background: rgba(30, 41, 59, 0.6);
